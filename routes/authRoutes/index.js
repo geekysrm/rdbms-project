@@ -2,14 +2,12 @@ const express = require('express');
 const crypto = require('crypto');
 
 const pg = require("pg");
+const DBconfig = require('../../helper/DBconfig');
 
-const pool = new pg.Pool({
-    user: "admin",
-    host: "127.0.0.1",
-    database: "rdbms",
-    password: "password",
-    port: "5432"
-});
+const pool = new pg.Pool(DBconfig);
+
+const jwt = require("jsonwebtoken");
+const SECRET = require('../../helper/JWTsecret');
 
 const router = express.Router();
 
@@ -68,7 +66,13 @@ router.post("/login", (req,res) => {
 
                 if(hashedPassword === dbstring)
                 {
-                    res.status(200).send("Log in succesfull");
+                    const id = result.rows[0].id;
+
+                    jwt.sign({ id }, SECRET, { expiresIn: '1d' }, (err, token) => {
+                        res.status(200).json({
+                            token
+                        });
+                    });
                 }
                 else
                 {
