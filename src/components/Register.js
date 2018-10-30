@@ -15,7 +15,7 @@ class Register extends Component {
     this.handlePassChange = this.handlePassChange.bind(this);
     this.handleUserChange = this.handleUserChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
-	this.handleConfirmPassChange = this.handleConfirmPassChange.bind(this);
+	  this.handleConfirmPassChange = this.handleConfirmPassChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.dismissError = this.dismissError.bind(this);
   }
@@ -42,9 +42,9 @@ class Register extends Component {
     }
     return this.setState({ error: '' });
     const submitData = {
-    	username,
-    	email,
-    	password
+    	username: this.state.username,
+    	email: this.state.email,
+    	password: this.state.password
     }
     // API Call Here (also remove return from last setState)
   }

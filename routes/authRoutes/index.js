@@ -13,7 +13,7 @@ const router = express.Router();
 
 const hashPassword = require('../../helper/hashPassword');
 
-router.post("/register", (req,res) => {
+router.post("/api/register", (req,res) => {
     
     const { username, email, password } = req.body;
 
@@ -38,7 +38,7 @@ router.post("/register", (req,res) => {
 
 });
 
-router.post("/login", (req,res) => {
+router.post("/api/login", (req,res) => {
 
     const { email, password } = req.body;
 

@@ -5,7 +5,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      username: '',
+      email: '',
       password: '',
       error: '',
     };
@@ -23,8 +23,8 @@ class Login extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
 
-    if (!this.state.username) {
-      return this.setState({ error: 'Username is required' });
+    if (!this.state.email) {
+      return this.setState({ error: 'email is required' });
     }
 
     if (!this.state.password) {
@@ -33,15 +33,15 @@ class Login extends Component {
 
     return this.setState({ error: '' });
     const submitData = {
-    	username,
-    	password
+    	email: this.state.email,
+    	password: this.state.password
     }
     // API Call Here (also remove return from last setState)
   }
 
   handleUserChange(evt) {
     this.setState({
-      username: evt.target.value,
+      email: evt.target.value,
     });
   };
 
@@ -64,7 +64,7 @@ class Login extends Component {
             </h3>
           }
           <label>User Name</label>
-          <input type="text"  value={this.state.username} onChange={this.handleUserChange} />
+          <input type="text"  value={this.state.email} onChange={this.handleUserChange} />
 
           <label>Password</label>
           <input type="password"  value={this.state.password} onChange={this.handlePassChange} />

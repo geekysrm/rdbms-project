@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './components/Login';
-import './components/Register';
+import Login from './components/Login';
+import Register from './components/Register';
 
 
 class App extends Component {
