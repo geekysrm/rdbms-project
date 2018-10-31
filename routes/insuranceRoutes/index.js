@@ -54,7 +54,7 @@ router.get("/api/has-insurance", getAuthToken, (req,res) => {
 
 });
 
-/*router.post("/api/insurance", getAuthToken, (req,res) => {
+router.post("/api/insurance", getAuthToken, (req,res) => {
 
     jwt.verify(req.token, SECRET, (err, authData) => {
         
@@ -66,11 +66,116 @@ router.get("/api/has-insurance", getAuthToken, (req,res) => {
         {
             const id = authData.id;
 
-            
+            const {
+                name,
+                dl_number,
+                car_model,
+                car_company,
+                car_number,
+                car_year,
+                car_price
+            } = req.body;
+
+            const d = new Date();
+            const current_year = Number(d.getFullYear());
+            const current_date = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+
+            const yearDiff = current_year - Number(car_year);
+            const current_price = car_price - ((Number(car_price) * 0.2) * yearDiff);
+
+            pool.query(`
+            UPDATE "Users" SET
+            "hasInsurance" = true,
+            "name" = $1,
+            "dl" = $2,
+            "car_model" = $3,
+            "car_company" = $4,
+            "car_number" = $5,
+            "car_year" = $6,
+            "car_price" = $7,
+            "car_currentPrice" = $8,
+            "date" = $9
+            WHERE "id" = $10;
+            `,
+            [name,dl_number,car_model,car_company,car_number,car_year,car_price,current_price,current_date,id],
+            (err, result) => {
+                if(err)
+                {
+                    res.status(500).send(err.toString());
+                }
+                else
+                {
+                    res.status(200).send('Insurance registration succesfully');
+                }
+            });
         }
 
     });
 
-});*/
+});
+
+router.get("/api/insurance", getAuthToken, (req,res) => {
+    
+        jwt.verify(req.token, SECRET, (err, authData) => {
+            
+            if(err)
+            {
+                res.sendStatus(403);
+            }
+            else
+            {
+                const id = authData.id;
+    
+                pool.query(`
+                    SELECT * FROM "Users" WHERE id = $1
+                `,
+                [id],
+                (err,result) => {
+    
+                    if(err)
+                    {
+                        res.status(500).send(err.toString());
+                    }
+                    else
+                    {
+                        if(result.rows.length === 0)
+                        {
+                          res.status(404).send("User not found!");
+                        }
+                        else
+                        {
+                            const {
+                                name,
+                                dl,
+                                car_model,
+                                car_company,
+                                car_number,
+                                car_year,
+                                car_price,
+                                car_currentPrice,
+                                date
+                            } = result.rows[0];
+
+                            res.status(200).json({
+                                id,
+                                name,
+                                dl,
+                                car_model,
+                                car_company,
+                                car_number,
+                                car_year,
+                                car_price,
+                                car_currentPrice,
+                                date
+                            });
+                        }
+                    }
+    
+                })
+            }
+    
+        });
+    
+    });
 
 module.exports = router;
