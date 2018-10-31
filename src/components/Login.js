@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import './App.css';
+import './Login.css';
 
 class Login extends Component {
   constructor() {
@@ -63,7 +63,7 @@ class Login extends Component {
               {this.state.error}
             </h3>
           }
-          <label>User Name</label>
+          <label>Email</label>
           <input type="text"  value={this.state.email} onChange={this.handleUserChange} />
 
           <label>Password</label>

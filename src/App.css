@@ -1,0 +1,15 @@
+.container{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap: 80px
+}
+
+.register {
+	 justify-self: center;
+}
+
+.login {
+	.register {
+	 justify-self: center;
+}
+}
