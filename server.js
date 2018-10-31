@@ -14,9 +14,12 @@ const PORT = process.env.PORT || 8000;
 app.use(express.static(path.resolve(__dirname, 'build')));
 
 //authRoutes
-
 const authRoutes = require('./routes/authRoutes');
 app.use(authRoutes);
+
+//insuranceRoutes
+const insuranceRoutes = require('./routes/insuranceRoutes');
+app.use(insuranceRoutes);
 
 // pass all other routes to React that will be handled by React Router
 app.get('*', (req,res) => {

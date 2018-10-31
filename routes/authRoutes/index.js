@@ -15,16 +15,16 @@ const hashPassword = require('../../helper/hashPassword');
 
 router.post("/api/register", (req,res) => {
     
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
 
     const salt = crypto.randomBytes(128).toString('hex');
 
     const passwordHash = hashPassword(password,salt);
 
     pool.query(`
-    INSERT INTO "Users" ("name", "email", "passwordHash") VALUES ($1,$2,$3);
+    INSERT INTO "Users" ("email", "passwordHash") VALUES ($1,$2);
     `,
-    [username,email,passwordHash],
+    [email,passwordHash],
     (err, result) => {
         if(err)
         {
