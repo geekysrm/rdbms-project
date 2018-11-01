@@ -28,8 +28,14 @@ class Home extends Component {
   //   );
   // }
   componentDidMount() {
-    axios
-      .get(`/api/has-insurance`)
+    axios({
+      method: 'get',
+      url: '/api/has-insurance',
+      headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+    })
       .then(res => {
         console.log(res.data);
       })
