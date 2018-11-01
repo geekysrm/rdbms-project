@@ -1,10 +1,19 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
 import Login from "./components/Login";
 import Register from "./components/Register";
+import setAuthToken from "./utils/setAuthToken";
 import "./App.css";
 
 class App extends Component {
+  componentDidMount() {
+    if (localStorage.getItem("token")) {
+      // Token present
+      setAuthToken(localStorage.getItem("token"));
+      this.props.history.push("/home");
+    }
+  }
   render() {
     return (
       <div className="app">
@@ -33,4 +42,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

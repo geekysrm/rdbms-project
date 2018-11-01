@@ -4,6 +4,8 @@ import { Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
+import setAuthToken from "../utils/setAuthToken";
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -11,37 +13,21 @@ class Home extends Component {
       hasInsurance: false
     };
   }
-  // render() {
-  //   return (
-  //     <div>
-  //       <h3>Welcome to Car Insurance Assistance</h3>
-  //       <br />
-  //       <br />
-  //       <p>
-  //         Your Claims:
-  //         <Link to="/claims">View</Link>
-  //       </p>
-  //       <p>
-  //         Your Insurance: <Link to="/insurance">View</Link>
-  //       </p>
-  //     </div>
-  //   );
-  // }
   componentDidMount() {
-    axios({
-      method: 'get',
-      url: '/api/has-insurance',
-      headers:{
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-    })
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (!localStorage.getItem("token")) {
+      // Token present
+      window.location.assign("/");
+    } else {
+      setAuthToken(localStorage.getItem("token"));
+      axios
+        .get(`/api/has-insurance`)
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
   handleBuyClick = () => {
     this.props.history.push("/buy");
@@ -50,10 +36,12 @@ class Home extends Component {
     return (
       <center>
         <div>
+          <br />
+
           <h3>Welcome to Car Insurance Assistance</h3>
           <br />
           <br />
-          {!this.state.hasInsurance && (
+          {!this.state.hasInsurance ? (
             <div>
               <h4>Buy an Insurance for your insurance</h4>
               <br />
@@ -61,6 +49,8 @@ class Home extends Component {
                 Buy
               </Button>
             </div>
+          ) : (
+            <div>Insurance Present</div>
           )}
         </div>
       </center>
