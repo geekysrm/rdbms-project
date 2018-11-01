@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import App from "./App";
 import NotFoundPage from "./components/NotFoundPage";
+import Home from "./components/Home";
 
 class AppRouter extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class AppRouter extends React.Component {
       <Router>
         <Switch>
           <Route exact path="/" component={App} />
+          <Route exact path="/home" component={Home} />
 
           <Route component={NotFoundPage} />
         </Switch>
