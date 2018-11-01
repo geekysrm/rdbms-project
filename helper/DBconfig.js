@@ -1,9 +1,6 @@
 const config = {
-    user: "admin",
-    host: "127.0.0.1",
-    database: "rdbms",
-    password: "password",
-    port: "5432"
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
 };
 
 module.exports = config;

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require("path");
 
 const pg = require("pg");
 const DBconfig = require('../../helper/DBconfig');
@@ -177,5 +178,30 @@ router.get("/api/insurance", getAuthToken, (req,res) => {
         });
     
     });
+
+router.get('/py',(req,res) => {
+    
+    let out = '';
+
+    const imagePath = path.join( __dirname, "../../public/images/0010.JPEG" );
+    const modelPath = path.join( __dirname, "../../ML/model.h5");
+    
+    var spawn = require("child_process").spawn;
+    var process = spawn('python',["./ML/predict.py", imagePath, modelPath]);
+    
+    process.stdout.on("data", function(data){
+      console.log(data.toString());
+      out = out + data.toString();
+    });
+
+    process.stderr.on('data', function(data){
+        console.log("Error: " + data);
+      });
+    
+    process.stdout.on('end', function(){
+      res.send(out);
+    });
+   
+});
 
 module.exports = router;
