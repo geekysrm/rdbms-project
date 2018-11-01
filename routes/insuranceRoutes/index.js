@@ -26,7 +26,7 @@ router.get("/api/has-insurance", getAuthToken, (req,res) => {
             const id = authData.id;
 
             pool.query(`
-                SELECT * FROM "Users" WHERE id = $1
+                SELECT * FROM "user" WHERE id = $1
             `,
             [id],
             (err,result) => {
@@ -85,7 +85,7 @@ router.post("/api/insurance", getAuthToken, (req,res) => {
             const current_price = car_price - ((Number(car_price) * 0.2) * yearDiff);
 
             pool.query(`
-            UPDATE "Users" SET
+            UPDATE "user" SET
             "hasInsurance" = true,
             "name" = $1,
             "dl" = $2,
@@ -128,7 +128,7 @@ router.get("/api/insurance", getAuthToken, (req,res) => {
                 const id = authData.id;
     
                 pool.query(`
-                    SELECT * FROM "Users" WHERE id = $1
+                    SELECT * FROM "user" WHERE id = $1
                 `,
                 [id],
                 (err,result) => {

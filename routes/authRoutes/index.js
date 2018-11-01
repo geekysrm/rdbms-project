@@ -22,7 +22,7 @@ router.post("/api/register", (req,res) => {
     const passwordHash = hashPassword(password,salt);
 
     pool.query(`
-    INSERT INTO "Users" ("email", "passwordHash") VALUES ($1,$2);
+    INSERT INTO "user" ("email", "passwordHash") VALUES ($1,$2);
     `,
     [email,passwordHash],
     (err, result) => {
@@ -43,7 +43,7 @@ router.post("/api/login", (req,res) => {
     const { email, password } = req.body;
 
     pool.query(`
-        SELECT * FROM "Users" WHERE email = $1
+        SELECT * FROM "user" WHERE email = $1
     `,
     [email],
     (err, result) => {
