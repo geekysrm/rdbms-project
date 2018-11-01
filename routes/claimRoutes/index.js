@@ -14,16 +14,18 @@ const getAuthToken = require("../../middleware/authToken");
 
 const router = express.Router();
 
+let counter = 0;
+
 const storage = multer.diskStorage({
     destination: './public/images/',
     filename: function(req, file, cb){
-        cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
+        cb(null, file.fieldname + counter.toString() + path.extname(file.originalname));
     }
 });
 
 function checkFileType(file, cb)
 {
-    const filetypes = /jpeg|jpg|png/;
+    const filetypes = /jpeg|jpg|png|JPEG/;
 
     const extname = filetypes.test(path.extname(file.originalname));
     const mimetype = filetypes.test(file.mimetype);
@@ -49,7 +51,7 @@ const upload = multer({
 }).single('image');
 
 
-router.post("/api/claim", getAuthToken, (req,res) => {
+/*router.post("/api/claim", getAuthToken, (req,res) => {
 
     jwt.verify(req.token, SECRET, (err, authData) => {
         
@@ -95,6 +97,29 @@ router.post("/api/claim", getAuthToken, (req,res) => {
 
     });
 
-});
+});*/
+
+router.post("/api/upload", (req,res)=>{
+    
+        upload(req, res, (err) => {
+            if(err)
+            {
+                res.send(err);
+            }
+            else
+            {
+                if(req.file == undefined)
+                {
+                    res.send("No file selected");
+                }
+                else
+                {
+                    const fileName = req.file.fieldname + counter.toString() + path.extname(req.file.originalname)
+                    counter++;
+                    res.redirect('/images/' + fileName);
+                }
+            }
+        })
+    });
 
 module.exports = router;

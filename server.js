@@ -23,7 +23,9 @@ app.use(insuranceRoutes);
 
 //claimRoutes
 const claimRoutes = require("./routes/claimRoutes");
-//app.use(claimRoutes);
+app.use(claimRoutes);
+
+app.use(express.static('./public'));
 
 // pass all other routes to React that will be handled by React Router
 app.get('*', (req,res) => {
