@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+
 import Login from './components/Login';
 import Register from './components/Register';
-
 import './App.css';
 
 class App extends Component {
