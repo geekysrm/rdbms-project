@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
-import './Login.css';
+import React, { Component } from "react";
+import axios from "axios";
+import { Button } from "reactstrap";
+
+import "./Login.css";
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: '',
-      error: '',
+      email: "",
+      password: "",
+      error: ""
     };
 
     this.handlePassChange = this.handlePassChange.bind(this);
@@ -17,59 +20,70 @@ class Login extends Component {
   }
 
   dismissError() {
-    this.setState({ error: '' });
+    this.setState({ error: "" });
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
 
     if (!this.state.email) {
-      return this.setState({ error: 'email is required' });
+      return this.setState({ error: "email is required" });
     }
 
     if (!this.state.password) {
-      return this.setState({ error: 'Password is required' });
+      return this.setState({ error: "Password is required" });
     }
 
-    return this.setState({ error: '' });
+    return this.setState({ error: "" });
     const submitData = {
-    	email: this.state.email,
-    	password: this.state.password
-    }
+      email: this.state.email,
+      password: this.state.password
+    };
     // API Call Here (also remove return from last setState)
   }
 
   handleUserChange(evt) {
     this.setState({
-      email: evt.target.value,
+      email: evt.target.value
     });
-  };
+  }
 
   handlePassChange(evt) {
     this.setState({
-      password: evt.target.value,
+      password: evt.target.value
     });
   }
 
   render() {
-
     return (
       <div className="Login">
         <form onSubmit={this.handleSubmit}>
-          {
-            this.state.error &&
-            <h3  onClick={this.dismissError}>
+          {this.state.error && (
+            <h3 onClick={this.dismissError}>
               <button onClick={this.dismissError}>✖</button>
               {this.state.error}
             </h3>
-          }
+          )}
           <label>Email</label>
-          <input type="text"  value={this.state.email} onChange={this.handleUserChange} />
-
+          <br />
+          <input
+            type="text"
+            value={this.state.email}
+            onChange={this.handleUserChange}
+            className="login_email"
+          />
+          <br />
           <label>Password</label>
-          <input type="password"  value={this.state.password} onChange={this.handlePassChange} />
-
-          <input type="submit" value="Log In"  />
+          <br />
+          <input
+            type="password"
+            value={this.state.password}
+            onChange={this.handlePassChange}
+            className="login_password"
+          />
+          <br />
+          <br />
+          <Button color="primary">Login</Button>
         </form>
       </div>
     );
