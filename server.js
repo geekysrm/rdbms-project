@@ -21,6 +21,10 @@ app.use(authRoutes);
 const insuranceRoutes = require('./routes/insuranceRoutes');
 app.use(insuranceRoutes);
 
+//claimRoutes
+const claimRoutes = require("./routes/claimRoutes");
+//app.use(claimRoutes);
+
 // pass all other routes to React that will be handled by React Router
 app.get('*', (req,res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
