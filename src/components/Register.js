@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button } from "reactstrap";
+import { Button, Alert } from "reactstrap";
 
 import "./Register.css";
 
@@ -11,7 +11,8 @@ class Register extends Component {
       password: "",
       password2: "",
       email: "",
-      error: ""
+      error: "",
+      registerMsg: ""
     };
 
     this.handlePassChange = this.handlePassChange.bind(this);
@@ -44,9 +45,18 @@ class Register extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    axios.post(`/api/register`, submitData).then(res => {
-      console.log(res.data);
-    });
+    axios
+      .post(`/api/register`, submitData)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          registerMsg: "Registration successful. Please login."
+        });
+      })
+      .catch(error => {
+        console.log("Some error occured " + error);
+        this.setState({ error: "Server error occured!" });
+      });
   }
 
   handleEmailChange(evt) {
@@ -70,10 +80,20 @@ class Register extends Component {
       <div className="Login">
         <form onSubmit={this.handleSubmit}>
           {this.state.error && (
-            <h3 onClick={this.dismissError}>
-              <button onClick={this.dismissError}>✖</button>
-              {this.state.error}
-            </h3>
+            <div>
+              <Alert color="danger">
+                {this.state.error}
+                &nbsp;&nbsp;
+                <Button onClick={this.dismissError} color="danger">
+                  X
+                </Button>
+              </Alert>
+            </div>
+          )}
+          {this.state.registerMsg && (
+            <div>
+              <Alert color="success">{this.state.registerMsg}</Alert>
+            </div>
           )}
 
           <label>Email</label>

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button } from "reactstrap";
+import { Button, Alert } from "reactstrap";
 
+import setAuthToken from "../utils/setAuthToken";
 import "./Login.css";
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
@@ -34,12 +35,27 @@ class Login extends Component {
       return this.setState({ error: "Password is required" });
     }
 
-    return this.setState({ error: "" });
+    this.setState({ error: "" });
     const submitData = {
       email: this.state.email,
       password: this.state.password
     };
-    // API Call Here (also remove return from last setState)
+    axios
+      .post(`/api/login`, submitData)
+      .then(res => {
+        console.log(res.data);
+        let token;
+        token = res.data.token;
+        //console.log(token);
+        localStorage.setItem("token", token);
+        setAuthToken(token);
+        // const decoded = jwt_decode(token);
+        this.props.history.push("/home");
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ error: "Server error occured!" });
+      });
   }
 
   handleUserChange(evt) {
@@ -59,15 +75,20 @@ class Login extends Component {
       <div className="Login">
         <form onSubmit={this.handleSubmit}>
           {this.state.error && (
-            <h3 onClick={this.dismissError}>
-              <button onClick={this.dismissError}>✖</button>
-              {this.state.error}
-            </h3>
+            <div>
+              <Alert color="danger">
+                {this.state.error}
+                &nbsp;&nbsp;
+                <Button onClick={this.dismissError} color="danger">
+                  X
+                </Button>
+              </Alert>
+            </div>
           )}
           <label>Email</label>
           <br />
           <input
-            type="text"
+            type="email"
             value={this.state.email}
             onChange={this.handleUserChange}
             className="login_email"
