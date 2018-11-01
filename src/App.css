@@ -1,15 +1,24 @@
-.container{
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-column-gap: 80px
+.app {
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 80px;
 }
 
 .register {
-	 justify-self: center;
+  justify-self: center;
+  border-style: solid;
+  border-color: #aaa;
+  padding: 50px;
+  background: gainsboro;
 }
 
 .login {
-	.register {
-	 justify-self: center;
-}
+  justify-self: center;
+  border-style: solid;
+  border-color: #aaa;
+  padding: 50px;
+  background: gainsboro;
 }
