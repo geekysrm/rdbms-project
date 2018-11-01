@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Button, Alert } from "reactstrap";
+import { withRouter } from "react-router-dom";
 
 import setAuthToken from "../utils/setAuthToken";
 import "./Login.css";
@@ -111,4 +112,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
