@@ -1,8 +1,10 @@
 .register_email {
   width: 300px;
+  margin-bottom: 15px;
 }
 .register_password {
   width: 300px;
+  margin-bottom: 15px;
 }
 .register_password2 {
   width: 300px;
