@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import App from "./App";
 import NotFoundPage from "./components/NotFoundPage";
 import Home from "./components/Home";
-import Upload from './components/Upload';
+import Upload from "./components/Upload";
+import Buy from "./components/Buy";
 
 class AppRouter extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class AppRouter extends React.Component {
           <Route exact path="/" component={App} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/upload" component={Upload} />
+          <Route exact path="/buy" component={Buy} />
 
           <Route component={NotFoundPage} />
         </Switch>
