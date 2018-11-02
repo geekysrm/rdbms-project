@@ -185,4 +185,38 @@ router.post("/api/claim", (req,res)=>{
         })
     });
 
+router.get("/api/claim", getAuthToken, (req,res) => {
+
+    jwt.verify(req.token, SECRET, (err, authData) => {
+        
+        if(err)
+        {
+            res.sendStatus(403);
+        }
+        else
+        {
+            const id = authData.id;
+
+            pool.query(`
+                SELECT * FROM "claim" WHERE user_id = $1
+            `,
+            [id],
+            (err,result) => {
+
+                if(err)
+                {
+                    res.status(500).send(err.toString());
+                }
+                else
+                {
+                   res.status(200).json(result.rows);
+                }
+
+            })
+        }
+
+    });
+
+});
+
 module.exports = router;
