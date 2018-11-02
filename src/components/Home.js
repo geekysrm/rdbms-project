@@ -37,6 +37,9 @@ class Home extends Component {
   handleCreateClick = () => {
     this.props.history.push("/upload");
   };
+  handleViewInsuranceClick = () => {
+    this.props.history.push("/view");
+  };
   render() {
     return (
       <center>
@@ -56,7 +59,9 @@ class Home extends Component {
             </div>
           ) : (
             <div>
-              <Button color="info">View Insurance</Button>
+              <Button color="info" onClick={this.handleViewInsuranceClick}>
+                View Insurance
+              </Button>
               <br />
               <br />
               <h3>Create a Claim</h3>

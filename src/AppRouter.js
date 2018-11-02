@@ -6,6 +6,7 @@ import NotFoundPage from "./components/NotFoundPage";
 import Home from "./components/Home";
 import Upload from "./components/Upload";
 import Buy from "./components/Buy";
+import View from "./components/View";
 
 class AppRouter extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class AppRouter extends React.Component {
           <Route exact path="/home" component={Home} />
           <Route exact path="/upload" component={Upload} />
           <Route exact path="/buy" component={Buy} />
+          <Route exact path="/view" component={View} />
 
           <Route component={NotFoundPage} />
         </Switch>
