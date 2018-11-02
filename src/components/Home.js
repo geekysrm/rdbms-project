@@ -15,7 +15,7 @@ class Home extends Component {
   }
   componentDidMount() {
     if (!localStorage.getItem("token")) {
-      // Token present
+      // Token not present
       window.location.assign("/");
     } else {
       setAuthToken(localStorage.getItem("token"));
@@ -23,14 +23,19 @@ class Home extends Component {
         .get(`/api/has-insurance`)
         .then(res => {
           console.log(res.data);
+          this.setState({ hasInsurance: res.data });
         })
         .catch(err => {
           console.log(err);
         });
     }
   }
+
   handleBuyClick = () => {
     this.props.history.push("/buy");
+  };
+  handleCreateClick = () => {
+    this.props.history.push("/upload");
   };
   render() {
     return (
@@ -43,14 +48,22 @@ class Home extends Component {
           <br />
           {!this.state.hasInsurance ? (
             <div>
-              <h4>Buy an Insurance for your insurance</h4>
+              <h4>Buy an Insurance for your vehicle</h4>
               <br />
               <Button onClick={this.handleBuyClick} color="info">
                 Buy
               </Button>
             </div>
           ) : (
-            <div>Insurance Present</div>
+            <div>
+              <Button color="info">View Insurance</Button>
+              <br />
+              <br />
+              <h3>Create a Claim</h3>
+              <Button color="primary" onClick={this.handleCreateClick}>
+                Create
+              </Button>
+            </div>
           )}
         </div>
       </center>
