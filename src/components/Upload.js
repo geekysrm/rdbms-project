@@ -3,46 +3,17 @@ import axios from 'axios';
 
 class Upload extends Component 
 {
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            file: null
-        }
-    }
-    
-    /*onFileChange = (event) =>
-    {
-        this.setState({
-            file: event.target.files[0]
-        });
-    }
-
-    onSubmit = () =>
-    {
-        axios({
-            method: 'post',
-            url: '/api/upload',
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            data:{
-                file: this.state.file
-            }
-          })
-            .then(res => {
-              console.log(res);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-    }*/
 
     render() 
     {
         return (
             <div>
-                <form action="/api/upload" method="POST" enctype="multipart/form-data">
+                <form action="/api/claim" 
+                    method="POST" 
+                    enctype="multipart/form-data" 
+                >
+                    <div style={{ display: "none" }} ><input type="text" name="token" value={`Bearer ${localStorage.getItem("token")}`} /></div>
+                    <div><input type="text" name="name" /></div>
                     <div><input type="file" name="image" /></div>
                     <div><button type="submit" class="btn">Submit</button></div>
                 </form>

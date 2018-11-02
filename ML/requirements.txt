@@ -1,7 +1,6 @@
-$ pip install keras
-$ pip install numpy
-$ pip install sklearn
-$ pip install skimage
-$ pip install urllib
-$ pip install os
-$ pip install 
+ pip install keras
+ pip install numpy
+ pip install sklearn
+ pip install skimage
+ pip install urllib
+ pip install os
