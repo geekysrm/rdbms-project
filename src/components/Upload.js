@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import {
-  InputGroup,
-  InputGroupText,
-  InputGroupAddon,
-  Input,
-  Button
-} from "reactstrap";
+import { Input, Button } from "reactstrap";
 
 class Upload extends Component {
+  componentDidMount() {
+    if (!localStorage.getItem("token")) {
+      // Token not present
+      window.location.assign("/");
+    }
+  }
   render() {
     return (
       <div className="form">

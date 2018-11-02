@@ -18,6 +18,12 @@ export default class Buy extends React.Component {
       car_price: null
     };
   }
+  componentWillMount() {
+    if (!localStorage.getItem("token")) {
+      // Token not present
+      window.location.assign("/");
+    }
+  }
   onFormSubmit = e => {
     e.preventDefault();
     const submitData = {

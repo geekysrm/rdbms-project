@@ -20,26 +20,31 @@ export default class View extends Component {
     };
   }
   componentDidMount() {
-    axios
-      .get(`/api/insurance`)
-      .then(res => {
-        console.log(res.data);
-        this.setState({
-          name: res.data.name,
-          car_currentPrice: res.data.car_currentPrice,
-          car_model: res.data.car_model,
-          car_number: res.data.car_number,
-          car_price: res.data.car_price,
-          car_company: res.data.car_company,
-          date: res.data.date.split("T")[0],
-          car_year: res.data.car_year,
-          dl: res.data.dl
+    if (!localStorage.getItem("token")) {
+      // Token not present
+      window.location.assign("/");
+    } else {
+      axios
+        .get(`/api/insurance`)
+        .then(res => {
+          console.log(res.data);
+          this.setState({
+            name: res.data.name,
+            car_currentPrice: res.data.car_currentPrice,
+            car_model: res.data.car_model,
+            car_number: res.data.car_number,
+            car_price: res.data.car_price,
+            car_company: res.data.car_company,
+            date: res.data.date.split("T")[0],
+            car_year: res.data.car_year,
+            dl: res.data.dl
+          });
+        })
+        .catch(error => {
+          console.log("Some error occured " + error);
+          alert("Server Error occured!");
         });
-      })
-      .catch(error => {
-        console.log("Some error occured " + error);
-        alert("Server Error occured!");
-      });
+    }
   }
   render() {
     return (
