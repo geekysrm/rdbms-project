@@ -50,6 +50,10 @@ class Home extends Component {
   handleViewInsuranceClick = () => {
     this.props.history.push("/view");
   };
+  handleLogoutClick = () => {
+    localStorage.removeItem("token");
+    window.location.assign("/");
+  };
   render() {
     return (
       <center>
@@ -57,6 +61,13 @@ class Home extends Component {
           <br />
 
           <h3>Welcome to Car Insurance Assistance</h3>
+          <Button
+            className="logout"
+            color="danger"
+            onClick={this.handleLogoutClick}
+          >
+            Logout
+          </Button>
           <br />
           <br />
           {!this.state.hasInsurance ? (
