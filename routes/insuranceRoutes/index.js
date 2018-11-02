@@ -179,7 +179,7 @@ router.get("/api/insurance", getAuthToken, (req,res) => {
     
     });
 
-router.get('/py',(req,res) => {
+/*router.get('/py',(req,res) => {
     
     let out = '';
 
@@ -202,6 +202,6 @@ router.get('/py',(req,res) => {
       res.send(out);
     });
    
-});
+});*/
 
 module.exports = router;
