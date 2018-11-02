@@ -24,6 +24,16 @@ class Home extends Component {
         .then(res => {
           console.log(res.data);
           this.setState({ hasInsurance: res.data });
+          if (res.data) {
+            axios
+              .get(`/api/claim`)
+              .then(res => {
+                console.log(res.data);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
         })
         .catch(err => {
           console.log(err);
@@ -59,15 +69,20 @@ class Home extends Component {
             </div>
           ) : (
             <div>
-              <Button color="info" onClick={this.handleViewInsuranceClick}>
-                View Insurance
-              </Button>
+              <div>
+                <Button color="info" onClick={this.handleViewInsuranceClick}>
+                  View Insurance
+                </Button>
+                <br />
+                <br />
+                <h3>Create a Claim</h3>
+                <Button color="primary" onClick={this.handleCreateClick}>
+                  Create
+                </Button>
+              </div>
               <br />
-              <br />
-              <h3>Create a Claim</h3>
-              <Button color="primary" onClick={this.handleCreateClick}>
-                Create
-              </Button>
+              <h3>Your Claims</h3>
+              {this.state.claims}
             </div>
           )}
         </div>
