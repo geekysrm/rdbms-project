@@ -1,7 +1,13 @@
-.logout {
-  margin-top: 5px;
-  margin-right: 10px;
-  position: absolute;
-  top: 0;
-  right: 0;
+.header-container
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.nav-item
+{
+  padding: 10px;
 }
