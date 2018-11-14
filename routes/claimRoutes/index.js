@@ -147,8 +147,8 @@ router.post("/api/claim", (req, res) => {
 
                       pool.query(
                         `
-                                                INSERT INTO "claim" ("user_id", "name", "image_url", "status", "damage", "refund")
-                                                VALUES ($1, $2, $3, $4, $5, $6);
+                          INSERT INTO "claim" ("user_id", "name", "image_url", "status", "damage", "refund")
+                          VALUES ($1, $2, $3, $4, $5, $6);
                                             `,
                         [id, name, fileName, "pending", damage, refund],
                         (err, result) => {
@@ -180,7 +180,7 @@ router.get("/api/claim", getAuthToken, (req, res) => {
 
       pool.query(
         `
-                SELECT * FROM "claim" WHERE user_id = $1
+         SELECT * FROM "claim" WHERE user_id = $1
             `,
         [id],
         (err, result) => {
